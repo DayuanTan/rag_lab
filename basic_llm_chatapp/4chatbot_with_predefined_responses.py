@@ -6,14 +6,14 @@ st.title("Simple chat, reply with random predefined responses")
 
 # Streamed response emulator
 def response_generator():
-    response = random.choice(
+    predefined_response = random.choice(
         [
             "Hello there! How can I assist you today?",
             "Hi, human! Is there anything I can help you with?",
             "Do you need help?",
         ]
     )
-    for word in response.split():
+    for word in predefined_response.split(): # Pick a random predefined response and display word by word.
         yield word + " "
         time.sleep(0.05)
         
@@ -45,6 +45,10 @@ if prompt := st.chat_input("What is up?"):
     # Display assistant response in chat message container
     with st.chat_message("assistant"):
         # st.markdown(response) # Display string formatted as Markdown.
-        st.write_stream(response) # Stream a generator, iterable, or stream-like sequence to the app.
+        response_final_display_text = st.write_stream(response) # Stream a generator, iterable, or stream-like sequence to the app.
     # Add assistant response to chat history
-    st.session_state.messages.append({"role": "assistant", "content": response})
+    st.session_state.messages.append({"role": "assistant", "content": response_final_display_text})
+    # Note 
+    # Must save response_final_display_text instead of response.
+    # If saved response, the chat histroy will display the index of the generator object, like <generator object response_generator at 0x1005bfb90>
+

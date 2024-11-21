@@ -1,1 +1,3 @@
-basic_llm_chatapp/.venv
+basic_llm_chatapp/.venv/*
+
+
